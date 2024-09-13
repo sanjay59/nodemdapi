@@ -2,6 +2,7 @@ module.exports = app => {
     const router = require("express").Router();
 
     const UserController = require("./../app/controllers/UserController");
+    const ProductController = require("./../app/controllers/ProductController");
     const validateAdmin = require("../app/middlewares/RegAdmin");
     const adminValidate = require("../app/middlewares/LogAdmin");
 
@@ -10,6 +11,7 @@ module.exports = app => {
 
     router.get('/index', UserController.index);
     router.post('/create', validateAdmin, UserController.create);
+    router.post('/create-user',UserController.createUser);
     router.get('/show', UserController.verifyToken, UserController.show);
     router.post('/adminLogin', adminValidate, UserController.adminLogin);
 
@@ -20,7 +22,9 @@ module.exports = app => {
 
     //Profile Update
     router.post("/upload-image", ProfileController.upload);
-
+    //product Controller
+    router.post('/create-product', ProductController.create);
+    
     app.use('/api', router);
 
 

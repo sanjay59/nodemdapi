@@ -1,7 +1,9 @@
 const { validationResult } = require("express-validator");
 const Admin = require("./../models/Admin.js");
+const User = require("./../models/User.js");
 const jwt = require("jsonwebtoken");
 const SecretKey = "JsonWebToken";
+const bcrypt = require('bcryptjs');
 
 async function index(req, res) {
   const message = new Admin({
@@ -51,6 +53,31 @@ function create(req, res) {
           });
         });
     })
+}
+
+async function createUser(req, res){
+  const {name, email, phone_number, password} = req.body;
+  if(!name || !email || !phone_number || !password) {
+    res.status(400).json({message:"All field is required"});
+  }
+  try{
+    
+    const checkUser = await User.findOne({email});
+    if(checkUser){
+      res.status(400).send({message:"User already exists."});
+    }
+    // const salt = await bcrypt.genSalt(10);
+    // const hashedPassword = await bcrypt.hash(password, salt);
+    const newuser = new User({
+      name,email,phone_number,password
+    });
+    console.log('before save');
+
+    await newuser.save();
+    res.status(201).send({status:true,message:"User created successfully.",result:newuser});
+  }catch(error){
+      res.status(500).send({message:error});
+  }
 }
 
 function show(req, res) {
@@ -122,5 +149,5 @@ function verifyToken(req, res, next) {
 }
 
 module.exports = {
-  index, create, show, edit, update, deleterow, adminLogin, verifyToken, search
+  index, create, show, edit, update, deleterow, adminLogin, verifyToken, search, createUser
 }
