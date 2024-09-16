@@ -24,6 +24,10 @@ module.exports = app => {
     router.post("/upload-image", ProfileController.upload);
     //product Controller
     router.post('/create-product', ProductController.create);
+    router.post('/create-cartitem', ProductController.cartItem);
+    router.get('/getCartItem/:user_id?', ProductController.getCartItem);
+    router.post('/create-order',ProductController.createOrder);
+    router.get('/orders/:user_id?',ProductController.getOrder);
     
     app.use('/api', router);
 
