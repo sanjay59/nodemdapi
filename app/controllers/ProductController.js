@@ -63,7 +63,7 @@ async function getCartItem(req,res){
                 as : "userDetails"
             }
         },{$project:{
-            user_id:1,product_id:1,quantity:1,"userDetails.name":1,"userDetails.email":1,"userDetails.phone_number":1
+            _id:0,user_id:1,product_id:1,quantity:1,"userDetails.name":1,"userDetails.email":1,"userDetails.phone_number":1
         }}]);      
       res.status(200).send({status:true,message:"Cart Item list get successfully.",result:newCartItem});
     }catch(error){
