@@ -2,11 +2,11 @@ const express = require("express");
 
 
 const app = express();
-app.use(express.json());
-const Profile = require("./app/models/Profile.js");
+// app.use(express.json());
+// const Profile = require("./app/models/Profile.js");
 
-require("./db.js");
-require("./routes/api.js")(app)
+// require("./db.js");
+// require("./routes/api.js")(app)
 
 
  
