@@ -12,7 +12,8 @@ module.exports = app => {
     router.get('/index', UserController.index);
     router.post('/create', validateAdmin, UserController.create);
     router.post('/create-user',UserController.createUser);
-    router.get('/show', UserController.verifyToken, UserController.show);
+    router.get('/show', UserController.show);
+    // router.get('/show', UserController.verifyToken, UserController.show);
     router.post('/adminLogin', adminValidate, UserController.adminLogin);
 
     //Chat Routes
